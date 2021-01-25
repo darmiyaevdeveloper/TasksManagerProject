@@ -1,5 +1,3 @@
-
-/*
 Sections:
 On the side there is sections, meaning, that you can make sections like, homework or just study
 
@@ -8,13 +6,6 @@ These are big goals etc
 
 Tasks:
 These are tasks that can be completed and recorded
-
-*/
-
-
-
-//alert('test')
-
 
 //Read localStorage:
 /*

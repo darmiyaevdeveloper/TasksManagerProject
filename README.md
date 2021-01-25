@@ -20,3 +20,12 @@ The settings also let you change many things about TaskManagerProject.
 We know that studying is hard so TaskManager gives you breaks so you don't burn out.
 # goals
 You can also add goals that help remind you want you want to do
+# organization
+Sections:
+On the side there is sections, meaning, that you can make sections like, homework or just study
+
+Smaller sections/headings:
+These are big goals etc
+
+Tasks:
+These are tasks that can be completed and recorded
