@@ -64,10 +64,6 @@ if (localStorage.getItem('object') === undefined) {
   }
 }
 */
-/* Add deleted elements and refer to it when created in same place / position */
-window.deletedSections = [];
-window.deletedHeadings = [];
-window.deletedTasks = [];
 const sidebar = document.getElementById('sidebarTasks');
 /* Counts each element so they can have different id's to be selected */
 window.counter = 0;
@@ -85,18 +81,10 @@ const deleteType = (labelAdd, labelDelete, inputType, spacing) => {
   /* Remove elements given as id's */
   document.getElementById(labelAdd).remove()
   /* Insert div so div can be used to append later */
-  document.getElementById(labelDelete).insertAdjacentHTML('afterend', `<div id="${inputType}"></div>`)
+  //document.getElementById(labelDelete).insertAdjacentHTML('afterend', `<div id="${inputType}"></div>`)
   document.getElementById(labelDelete).remove()
   document.getElementById(inputType).remove()
   document.getElementById(spacing).remove()
-  /* Check if inputType is section or heading */
-  if (inputType.slice(0, 7) === 'element') {
-    /* Push to section counter */
-    window.deletedSections.push(inputType)
-  } else if (inputType.slice(0, 7) === 'heading') {
-    /* Push to heading counter */
-    window.deletedHeadings.push(inputType)
-  }
 }
 /* New task */
 const newTask = (id, labelid) => {
@@ -118,6 +106,7 @@ const newHeading = (id, labelid) => {
   // test declared to fix some bugs but might be unnessary
   const test = 'element' + window.counterHeadings;
   // creat heading input
+  //document.getElementById(`${labelid}`)
   document.getElementById(`${labelid}`).insertAdjacentHTML('afterend', `<br><input placeholder="heading" name="heading" type="text" id="heading${window.counterHeadings}" style="position: relative; left: 2vw;"></input>`)
   // insert label button "+"
   document.getElementById(`heading${window.counterHeadings}`).insertAdjacentHTML('afterend', `<label for="heading" style="position: relative; left: 2vw;" id="label${window.counterLabel}"><button onclick="newTask('heading${window.counterHeadings}', 'label${window.counterLabel}')">+</button></label>`);
