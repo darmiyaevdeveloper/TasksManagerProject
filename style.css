@@ -13,6 +13,7 @@ li {
 li:hover {
   background-color: rgb(94, 94, 219);
 }
+/* Text Responsive */
 #version {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 5vh;

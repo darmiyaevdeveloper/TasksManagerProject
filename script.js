@@ -149,22 +149,51 @@ const addSection = () => {
   br.id = `br${window.counterBr}`;
   sidebar.appendChild(br);
 }
+window.counterCheck = 0;
 const navbarRight = document.getElementById('navbarRight');
 const version = document.getElementById('version');
 const rightNavBar = () => {
-  navbarRight.style= 'visibility: visible; position: absolute;';
-  version.innerHTML = 'Unreleased: Version 0.8';
-  navbarRight.style.top = '10%';
-  //68
-  navbarRight.style.left = '68%';
-  var counter = 0;
-  var myInterval = setInterval(function () {
-    counter++
-    console.log(counter);
-    navbarRight.style.width = `${counter}%`;
-    navbarRight.style.left++
-    if (counter > 29) {
-      clearInterval(myInterval)
-    }
-  }, 10)
+  // If window.counterCheck is not 1 then it's 0
+  if (window.counterCheck !== 1) {
+    window.counterCheck = 1;
+    navbarRight.style= 'visibility: visible; position: absolute;';
+    const URL = '/version.md';
+    fetch(URL)
+    .then(res => res.text())
+    .then(text => {
+      console.log(text);
+      // - 1
+      version.innerHTML = text.slice(0, text.search("Log:"));
+    })
+    .catch(err => console.log(err));
+    navbarRight.style.top = '10%';
+    //68
+    navbarRight.style.left = '68%';
+    var counter = 0;
+    var myInterval = setInterval(function () {
+      counter++
+      console.log(counter);
+      navbarRight.style.width = `${counter}%`;
+      navbarRight.style.left++
+      if (counter > 29) {
+        clearInterval(myInterval)
+      }
+    }, 10)
+  } else {
+    window.counterCheck = 0;
+    navbarRight.style.top = '10%';
+    //68
+    navbarRight.style.left = '68%';
+    var counter = 29;
+    var myInterval = setInterval(function () {
+      counter--
+      console.log(counter);
+      navbarRight.style.width = `${counter}%`;
+      navbarRight.style.left--
+      if (counter < 1) {
+        navbarRight.style= 'visibility: hidden; position: absolute;';
+        clearInterval(myInterval)
+      }
+    }, 10)
+  }
 }
