@@ -77,14 +77,24 @@ const deleteTask = (taskid) => {
 
 }
 /* Delete sections and headings */
-const deleteType = (labelAdd, labelDelete, inputType, spacing) => {
+window.divCounter = 0;
+window.divCounter2 = 0;
+const deleteType = (labelAdd, labelDelete, inputType, spacing, elementNumber) => {
+  window.divCounter++
   /* Remove elements given as id's */
-  document.getElementById(labelAdd).remove()
   /* Insert div so div can be used to append later */
   //document.getElementById(labelDelete).insertAdjacentHTML('afterend', `<div id="${inputType}"></div>`)
   document.getElementById(labelDelete).remove()
-  document.getElementById(inputType).remove()
   document.getElementById(spacing).remove()
+  document.getElementById(inputType).insertAdjacentHTML('afterend', `<div id="div${window.divCounter}"`)
+  const myNewDiv = document.createElement('div');
+  myNewDiv.id = `div2${window.divCounter2}`;
+  document.getElementById('sidebarTasks').appendChild(myNewDiv)
+  document.getElementById(myNewDiv.id).insertAdjacentHTML('beforebegin', `</div>`)
+  document.getElementById(myNewDiv.id).remove()
+  //document.getElementById(inputType).remove()
+  //document.getElementById(labelAdd).remove()
+  //document.getElementById(`element${elementNumber + 1}`).remove()
 }
 /* New task */
 const newTask = (id, labelid) => {
@@ -107,7 +117,7 @@ const newHeading = (id, labelid) => {
   const test = 'element' + window.counterHeadings;
   // creat heading input
   //document.getElementById(`${labelid}`)
-  document.getElementById(`${labelid}`).insertAdjacentHTML('afterend', `<br><input placeholder="heading" name="heading" type="text" id="heading${window.counterHeadings}" style="position: relative; left: 2vw;"></input>`)
+  document.getElementById(`${labelid}`).nextElementSibling.insertAdjacentHTML('afterend', `<br><input placeholder="heading" name="heading" type="text" id="heading${window.counterHeadings}" style="position: relative; left: 2vw;"></input>`)
   // insert label button "+"
   document.getElementById(`heading${window.counterHeadings}`).insertAdjacentHTML('afterend', `<label for="heading" style="position: relative; left: 2vw;" id="label${window.counterLabel}"><button onclick="newTask('heading${window.counterHeadings}', 'label${window.counterLabel}')">+</button></label>`);
 }
@@ -133,9 +143,28 @@ const addSection = () => {
   console.log(label.innerHTML);
   sidebar.appendChild(label)
   // delete label "X"
-  document.getElementById(`label${window.counterLabel}`).insertAdjacentHTML('afterend', `<label for="section" id="labelDelete${window.counterLabelDelete}"><button onclick="deleteType('label${window.counterLabel}', 'labelDelete${window.counterLabelDelete}', 'element${window.counter}', 'br${window.counterBr}')">X</button></label>`)
+  document.getElementById(`label${window.counterLabel}`).insertAdjacentHTML('afterend', `<label for="section" id="labelDelete${window.counterLabelDelete}"><button onclick="deleteType('label${window.counterLabel}', 'labelDelete${window.counterLabelDelete}', 'element${window.counter}', 'br${window.counterBr}', '${window.counter}')">X</button></label>`)
   // br has id so can be deleted and not take up space.
   const br = document.createElement('br');
   br.id = `br${window.counterBr}`;
   sidebar.appendChild(br);
+}
+const navbarRight = document.getElementById('navbarRight');
+const version = document.getElementById('version');
+const rightNavBar = () => {
+  navbarRight.style= 'visibility: visible; position: absolute;';
+  version.innerHTML = 'Unreleased: Version 0.8';
+  navbarRight.style.top = '10%';
+  //68
+  navbarRight.style.left = '68%';
+  var counter = 0;
+  var myInterval = setInterval(function () {
+    counter++
+    console.log(counter);
+    navbarRight.style.width = `${counter}%`;
+    navbarRight.style.left++
+    if (counter > 29) {
+      clearInterval(myInterval)
+    }
+  }, 10)
 }

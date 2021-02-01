@@ -1,0 +1,19 @@
+#navbarRight {
+  background-color: rgb(41, 41, 214);
+  height: 70%;
+  text-align: center;
+  border-radius: 6px;
+}
+li {
+  border: solid;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 3px;
+}
+li:hover {
+  background-color: rgb(94, 94, 219);
+}
+#version {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 5vh;
+}
