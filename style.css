@@ -18,3 +18,8 @@ li:hover {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 5vh;
 }
+#darklightMode {
+  position: absolute;
+  left: 82%;
+  font-size: 1.4em;
+}
