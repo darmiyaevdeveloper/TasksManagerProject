@@ -47,15 +47,17 @@ const deleteType = (labelAdd, labelDelete, inputType, spacing, elementNumber) =>
   /* Insert div so div can be used to append later */
   //document.getElementById(labelDelete).insertAdjacentHTML('afterend', `<div id="${inputType}"></div>`)
   document.getElementById(labelDelete).remove()
-  document.getElementById(spacing).remove()
+  if (spacing !== '') {
+    document.getElementById(spacing).remove()
+  }
   document.getElementById(inputType).insertAdjacentHTML('afterend', `<div id="div${window.divCounter}"`)
   const myNewDiv = document.createElement('div');
   myNewDiv.id = `div2${window.divCounter2}`;
   document.getElementById('sidebarTasks').appendChild(myNewDiv)
   document.getElementById(myNewDiv.id).insertAdjacentHTML('beforebegin', `</div>`)
   document.getElementById(myNewDiv.id).remove()
-  //document.getElementById(inputType).remove()
-  //document.getElementById(labelAdd).remove()
+  document.getElementById(inputType).remove()
+  document.getElementById(labelAdd).remove()
   //document.getElementById(`element${elementNumber + 1}`).remove()
 }
 /* New task */
@@ -63,18 +65,26 @@ const newTask = (id, labelid) => {
   // Counter tasks for id's that work
   window.counterTasks++
   window.counterLabel++
+  window.counterLabelDelete++
+  window.counterBr++
   const heading = document.getElementById(id);
   const label = document.getElementById(labelid);
   // Insert task input
-  label.insertAdjacentHTML('afterend', `<br><input placeholder="task" name="task" type="text" id="task${window.counterTasks}" style="position: relative; left: 4vw;"></input>`)
+  label.nextElementSibling.insertAdjacentHTML('afterend', `<br><input placeholder="task" name="task" type="text" id="task${window.counterTasks}" style="position: relative; left: 4vw;"></input>`)
   // Insert button to go to the task
   document.getElementById(`task${window.counterTasks}`).insertAdjacentHTML('afterend', `<label for="task" style="position: relative; left: 4vw;" id="label${window.counterLabel}"><button onclick="checkTask()">></button></label>`)
+  document.getElementById(`label${window.counterLabel}`).insertAdjacentHTML('afterend', `<label for="task" id="labelDelete${window.counterLabelDelete}"><button onclick="deleteType('label${window.counterLabel}', 'labelDelete${window.counterLabelDelete}', 'task${window.counterTasks}', 'br${window.counterBr}', '${window.counterTasks}')">X</button></label>`)
+  const br = document.createElement('br');
+  br.id = `br${window.counterBr}`;
+  sidebar.appendChild(br);
 }
 const newHeading = (id, labelid) => {
   const sectionElement = document.getElementById(id);
   // Counter for headings and id's
   window.counterHeadings++
   window.counterLabel++
+  window.counterLabelDelete++
+  window.counterBr++
   // test declared to fix some bugs but might be unnessary
   const test = 'element' + window.counterHeadings;
   // creat heading input
@@ -82,12 +92,17 @@ const newHeading = (id, labelid) => {
   document.getElementById(`${labelid}`).nextElementSibling.insertAdjacentHTML('afterend', `<br><input placeholder="heading" name="heading" type="text" id="heading${window.counterHeadings}" style="position: relative; left: 2vw;"></input>`)
   // insert label button "+"
   document.getElementById(`heading${window.counterHeadings}`).insertAdjacentHTML('afterend', `<label for="heading" style="position: relative; left: 2vw;" id="label${window.counterLabel}"><button onclick="newTask('heading${window.counterHeadings}', 'label${window.counterLabel}')">+</button></label>`);
+  document.getElementById(`label${window.counterLabel}`).insertAdjacentHTML('afterend', `<label for="heading" id="labelDelete${window.counterLabelDelete}"><button onclick="deleteType('label${window.counterLabel}', 'labelDelete${window.counterLabelDelete}', 'heading${window.counterHeadings}', 'br${window.counterBr}', '${window.counterHeadings}')">X</button></label>`)
+  const br = document.createElement('br');
+  br.id = `br${window.counterBr}`;
+  sidebar.appendChild(br);
 }
 const addSection = () => {
   // counter for section, label and <br>
   window.counter++
   window.counterLabel++
   window.counterBr++
+  window.counterLabelDelete++
   const newSection = document.createElement('input');
   // add attributes to section and appendChild() because section is not moved to the right so this is a better aprroach
   newSection.setAttribute('placeholder', 'section');
@@ -118,16 +133,16 @@ const rightNavBar = () => {
   // If window.counterCheck is not 1 then it's 0
   if (window.counterCheck !== 1) {
     window.counterCheck = 1;
-    navbarRight.style= 'visibility: visible; position: absolute;';
+    navbarRight.style = 'visibility: visible; position: absolute;';
     const URL = '/version.md';
     fetch(URL)
-    .then(res => res.text())
-    .then(text => {
-      console.log(text);
-      // - 1
-      version.innerHTML = text.slice(0, text.search("Log:"));
-    })
-    .catch(err => console.log(err));
+      .then(res => res.text())
+      .then(text => {
+        console.log(text);
+        // - 1
+        version.innerHTML = text.slice(0, text.search("Log:"));
+      })
+      .catch(err => console.log(err));
     navbarRight.style.top = '10%';
     //68
     navbarRight.style.left = '68%';
@@ -153,22 +168,9 @@ const rightNavBar = () => {
       navbarRight.style.width = `${counter}%`;
       navbarRight.style.left--
       if (counter < 1) {
-        navbarRight.style= 'visibility: hidden; position: absolute;';
+        navbarRight.style = 'visibility: hidden; position: absolute;';
         clearInterval(myInterval)
       }
     }, 10)
   }
-}
-const toggleDarkOrLight = document.getElementsByTagName("i")[0];
-var toggled = false;
-const toggle = () => {
-  if (toggled === false) {
-    toggleDarkOrLight.classList.remove("fa-toggle-off");
-    toggleDarkOrLight.classList.add("fa-toggle-on");
-    toggled = true;
-  } else {
-    toggleDarkOrLight.classList.remove("fa-toggle-on");
-    toggleDarkOrLight.classList.add("fa-toggle-off");
-    toggled = false;
-  }
-};
+} 

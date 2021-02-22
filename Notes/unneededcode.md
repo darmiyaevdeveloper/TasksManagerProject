@@ -65,3 +65,17 @@ if (localStorage.getItem('object') === undefined) {
   }
 }
 */
+const toggleDarkOrLight = document.getElementsByTagName("i")[0];
+var toggled = false;
+const toggle = () => {
+  if (toggled === false) {
+    toggleDarkOrLight.classList.remove("fa-toggle-off");
+    toggleDarkOrLight.classList.add("fa-toggle-on");
+    toggled = true;
+  } else {
+    toggleDarkOrLight.classList.remove("fa-toggle-on");
+    toggleDarkOrLight.classList.add("fa-toggle-off");
+    toggled = false;
+  }
+};
+<i id="darklightMode" class="fa fa-toggle-off" onclick="toggle()"></i>
