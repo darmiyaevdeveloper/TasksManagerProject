@@ -79,3 +79,6 @@ const toggle = () => {
   }
 };
 <i id="darklightMode" class="fa fa-toggle-off" onclick="toggle()"></i>
+    <input id="" name="section" type="text" placeholder="section"> <label for="section"><button id="">+</button></label> <br>
+    <input id="" name="heading" type="text" placeholder="heading" style="position: relative; left: 2vw;"> <label for="heading" style="position: relative; left: 2vw;"><button id="" onclick="newTask(this.id)">+</button></label> <br>
+    <input id="" name="task" type="text" placeholder="task" style="position: relative; left: 4vw;" style="position: relative; left: 2vw;"> <label for="task" style="position: relative; left: 4vw;"><button id="">></button></label> <br>

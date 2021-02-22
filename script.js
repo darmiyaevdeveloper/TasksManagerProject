@@ -85,8 +85,10 @@ const newHeading = (id, labelid) => {
   window.counterLabel++
   window.counterLabelDelete++
   window.counterBr++
+  /*
   // test declared to fix some bugs but might be unnessary
   const test = 'element' + window.counterHeadings;
+  */
   // creat heading input
   //document.getElementById(`${labelid}`)
   document.getElementById(`${labelid}`).nextElementSibling.insertAdjacentHTML('afterend', `<br><input placeholder="heading" name="heading" type="text" id="heading${window.counterHeadings}" style="position: relative; left: 2vw;"></input>`)
@@ -174,3 +176,7 @@ const rightNavBar = () => {
     }, 10)
   }
 } 
+// Read customize
+
+
+localStorage.getItem("customize")
